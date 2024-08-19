@@ -189,9 +189,9 @@ while running:
         text_x = progress_bar_x
         text_y = button_y + button_height + 30
         draw_status_text(text_x, text_y, f"Current road condition for driving:", white)
-        draw_status_text(text_x, text_y + 40, f"Very Critical: {int(red_percentage)}%", red)
-        draw_status_text(text_x, text_y + 80, f"Critical: {int(yellow_percentage)}%", yellow)
-        draw_status_text(text_x, text_y + 120, f"Safe: {int(green_percentage)}%", green)
+        draw_status_text(text_x, text_y + 40, f"Very Critical: {round(red_percentage, 2)}%", red)
+        draw_status_text(text_x, text_y + 80, f"Critical: {round(yellow_percentage, 2)}%", yellow)
+        draw_status_text(text_x, text_y + 120, f"Safe: {round(green_percentage, 2)}%", green)
 
     pygame.display.flip()
 
