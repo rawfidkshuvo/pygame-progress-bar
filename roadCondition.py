@@ -15,10 +15,11 @@ white = (255, 255, 255)
 red = (255, 0, 0)
 yellow = (255, 255, 0)
 green = (0, 255, 0)
+blue = (3, 240, 252)
 
 # Progress bar dimensions
 progress_bar_width = 600
-progress_bar_height = 50
+progress_bar_height = 40
 progress_bar_x = (screen_width - progress_bar_width) // 2
 progress_bar_y = screen_height // 2 - 50
 
@@ -30,12 +31,12 @@ button_y = progress_bar_y + progress_bar_height + 50
 
 # Color button dimensions
 color_button_radius = 50
-color_button_y = progress_bar_y - color_button_radius - 30
+color_button_y = progress_bar_y - color_button_radius - 50
 color_button_x_offsets = [-200, 0, 200]
 
 # Progress states
 progress = 0
-progress_speed = 7
+progress_speed = 8
 
 # Initialize percentages
 red_percentage = 0
@@ -46,7 +47,7 @@ green_percentage = 0
 toggle_colors = [red, yellow, green]
 labels = ["Rain", "Fog", "Snow"]
 statuses = ["Heavy", "Light", "Clear"]
-color_selections = [red, yellow, green]
+color_selections = [green, green, green]
 
 # Set up the clock for frame rate control
 clock = pygame.time.Clock()
@@ -59,8 +60,8 @@ def draw_round_button(x, y, radius, color, label, status):
     label_rect = label_surface.get_rect(center=(x, y))
     screen.blit(label_surface, label_rect)
 
-    status_surface = font.render(status, True, white)
-    status_rect = status_surface.get_rect(center=(x, y + 60))
+    status_surface = font.render(status, True, blue)
+    status_rect = status_surface.get_rect(center=(x, y - 65))
     screen.blit(status_surface, status_rect)
 
 def draw_status_text(x, y, text, color):
@@ -150,16 +151,16 @@ while running:
     # Draw color buttons
     for i, offset in enumerate(color_button_x_offsets):
         status_text = statuses[toggle_colors.index(color_selections[i])]
-        draw_round_button(screen_width // 2 + offset, color_button_y, color_button_radius, color_selections[i], labels[i], status_text)
+        draw_round_button(screen_width // 2 + offset, color_button_y + 20, color_button_radius, color_selections[i], status_text, labels[i])
 
     # Draw the status text lines only after the progress completes
     if show_text:
         text_x = progress_bar_x
         text_y = button_y + button_height + 50
         draw_status_text(text_x, text_y, f"Current road condition for driving:", white)
-        draw_status_text(text_x, text_y + 40, f"{int(red_percentage)}% very critical", red)
-        draw_status_text(text_x, text_y + 80, f"{int(yellow_percentage)}% critical", yellow)
-        draw_status_text(text_x, text_y + 120, f"{int(green_percentage)}% safe", green)
+        draw_status_text(text_x, text_y + 40, f"Very Critical: {int(red_percentage)}%", red)
+        draw_status_text(text_x, text_y + 80, f"Critical: {int(yellow_percentage)}%", yellow)
+        draw_status_text(text_x, text_y + 120, f"Safe: {int(green_percentage)}%", green)
 
     pygame.display.flip()
 
